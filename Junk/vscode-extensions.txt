@@ -1,0 +1,75 @@
+# VS Code extensions installed by vscode.sh — one extension ID per line.
+# Lines starting with # (and blank lines) are ignored.
+
+
+####### Definately Want ######
+ms-python.python
+# Python language support (Pylance)
+
+
+####### Probably Want ######
+
+astral-sh.ty
+# Python type checking
+
+charliermarsh.ruff
+# Python formatting/linting
+
+esbenp.prettier-vscode
+# JS/CSS/HTML formatting
+
+mechatroner.rainbow-csv
+# Colorized CSV columns
+
+
+####### Maybe Want ######
+
+#ms-toolsai.jupyter
+# Notebooks
+
+#ms-vscode.live-server
+# Live-reloading web preview
+
+#ms-vscode.theme-predawnkit
+# Predawn color theme
+
+#tamasfe.even-better-toml
+# TOML support (pyproject.toml)
+
+#teabyii.ayu
+# Ayu file icons
+
+#tomoki1207.pdf
+# PDF viewer
+
+####### Dont Want ######
+
+#batisteo.vscode-django
+# Django template syntax/snippets
+
+#foxundermoon.shell-format
+# Shell script formatting
+
+#monosans.djlint
+# Django/Jinja template formatting
+
+#mtxr.sqltools
+# SQL client
+
+#mtxr.sqltools-driver-sqlite
+# SQLite driver for SQLTools
+
+
+####### Reenable Later ######
+# Pulled in automatically by ms-python.python and ms-toolsai.jupyter — listed so the
+# `j manifests` diff stays clean, not because they need installing on their own.
+#######
+
+#ms-python.vscode-pylance
+#ms-python.debugpy
+#ms-python.vscode-python-envs
+#ms-toolsai.jupyter-keymap
+#ms-toolsai.jupyter-renderers
+#ms-toolsai.vscode-jupyter-cell-tags
+#ms-toolsai.vscode-jupyter-slideshow
+#elijah-potter.harper

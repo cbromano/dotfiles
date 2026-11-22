@@ -1,0 +1,11 @@
+# winget packages installed by windows/install.ps1 — one ID per line.
+# Lines starting with # (and blank lines) are ignored. IDs are exact
+# (`winget search <name>` to find one). Same tools as the Mac manifests where
+# a Windows build exists; the rest are noted at the bottom.
+
+# --- Shell and terminal
+#Microsoft.PowerShell
+# PowerShell 7 (Windows ships 5.1; the profile targets 7)
+
+Microsoft.PowerToys
+# FancyZones = the Rectangle counterpart (window snapping)

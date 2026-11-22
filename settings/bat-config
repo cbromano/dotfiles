@@ -1,4 +1,0 @@
-# bat (cat with syntax highlighting), linked to ~/.config/bat/config by install.sh
-
-# Predawn (settings/bat-themes); after editing a theme, run `bat cache --build`
---theme=Predawn
