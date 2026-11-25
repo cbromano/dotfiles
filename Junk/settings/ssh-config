@@ -1,0 +1,7 @@
+# Linked to ~/.ssh/config by install.sh. First match wins in ssh configs,
+# so the untracked machine-specific include comes first.
+Include config.local
+
+Host *
+    # Servers with `AcceptEnv COLORTERM` render exact 24-bit prompt colors
+    SendEnv COLORTERM
