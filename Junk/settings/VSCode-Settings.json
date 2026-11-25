@@ -1,0 +1,170 @@
+{
+  // BEGIN - Recording specific settings
+  "editor.fontSize": 18, // Use 18 for Screen Recordings
+  "debug.console.fontSize": 18, // Use 18 for Screen Recordings
+  "terminal.integrated.fontSize": 18, // Use 18 for Screen Recordings
+  "window.zoomLevel": -2, // Use 3 for Screen Recordings
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "workbench.editor.useModal": "off",
+
+  // Uncomment Below for Recording...
+
+  // "editor.fontSize": 18, // Use 18 for Screen Recordings
+  // "debug.console.fontSize": 18, // Use 18 for Screen Recordings
+  // "terminal.integrated.fontSize": 18, // Use 18 for Screen Recordings
+  // "window.zoomLevel": 3, // Use 3 for Screen Recordings
+  // "editor.quickSuggestions": {
+  //   "comments": "off",
+  //   "strings": "off"
+  //   "other": "on",
+  // },
+  // "editor.lightbulb.enabled": "off",
+  // "editor.parameterHints.enabled": false,
+  // "editor.hover.enabled": false,
+  // "editor.inlineSuggest.enabled": false,
+  // "editor.suggest.showSnippets": false,
+  // "github.copilot.nextEditSuggestions.enabled": false,
+
+  // END - Recording specific settings
+
+  // General settings
+  "workbench.colorTheme": "Predawn",
+  "workbench.iconTheme": "ayu",
+  "editor.fontFamily": "Source Code Pro",
+  "debug.console.fontFamily": "Source Code Pro",
+  "editor.fontWeight": "500",
+  "workbench.settings.openDefaultSettings": true,
+  "workbench.settings.useSplitJSON": true,
+  "workbench.settings.editor": "json",
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.tabSize": 4,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.quickSuggestionsDelay": 200,
+  "editor.dragAndDrop": false,
+  "editor.minimap.enabled": false,
+  "editor.stickyScroll.enabled": false,
+  "diffEditor.useInlineViewWhenSpaceIsLimited": false,
+  "files.exclude": {
+    "**/.git": false,
+    "**/.mypy_cache": true,
+  },
+
+  // Zen Mode settings
+  "zenMode.centerLayout": false,
+  "zenMode.fullScreen": false,
+  "zenMode.hideLineNumbers": false,
+
+  // Copilot settings
+  "github.copilot.chat.agent.thinkingTool": true,
+  "github.copilot.chat.codesearch.enabled": true,
+  "github.copilot.chat.newWorkspace.useContext7": true,
+  "python.analysis.addHoverSummaries": true,
+
+  // Python settings
+  "python.languageServer": "Default", // Pylance — the ty extension offers to switch this to "None"
+  "python.terminal.activateEnvironment": false, // I activate manually or use `uv run`; Pylance still picks up the project .venv
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit",
+    },
+  },
+  "python.analysis.typeCheckingMode": "off", // Disable Pylance type checking so ty is the only type checker
+  "python.analysis.autoFormatStrings": true,
+
+  // HTML, Jinja2, and Django settings
+  "django.snippets.use": false,
+  "[html][django-html]": {
+    "editor.defaultFormatter": "monosans.djlint",
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+  },
+  "files.associations": {
+    "*.html": "django-html",
+    "*.svg": "html",
+  },
+  "emmet.includeLanguages": {
+    "django-html": "html",
+  },
+  "djlint.useVenv": false,
+  // DJLint settings (should match "~/Work/djlint.toml")
+  "djlint.ignore": ["H031"],
+  "djlint.maxBlankLines": 1,
+  "djlint.profile": "jinja",
+  "djlint.formatCss": true,
+  "djlint.formatJs": true,
+  "djlint.lineBreakAfterMultilineTag": false,
+
+  // Plaintext settings
+  "[plaintext]": {
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off",
+    },
+  },
+
+  // Shell script settings
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+  },
+
+  // Notebook settings
+  "notebook.defaultFormatter": "charliermarsh.ruff",
+  "notebook.formatOnSave.enabled": true,
+  "notebook.codeActionsOnSave": {
+    "notebook.source.organizeImports": "explicit",
+  },
+  "notebook.insertFinalNewline": true,
+  "notebook.output.scrolling": true,
+  "notebook.lineNumbers": "on",
+  "notebook.scrolling.revealNextCellOnExecute": "none",
+
+  // SQL Tools settings
+  "sqltools.useNodeRuntime": true,
+
+  // Terminal settings (the integrated terminal is its own emulator — these
+  // mirror the Ghostty config so both look the same; the shell side comes
+  // from the dotfiles either way)
+  "terminal.external.osxExec": "Ghostty.app",
+  "terminal.integrated.fontFamily": "Source Code Pro",
+  "terminal.integrated.fontWeight": "600",
+  "terminal.integrated.fontWeightBold": "900",
+  "terminal.integrated.letterSpacing": 3, // tuned by eye at fontSize 18 to match Ghostty's cell width
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.drawBoldTextInBrightColors": false, // bold keeps its palette slot, like Ghostty
+  "terminal.integrated.minimumContrastRatio": 1.1, // same scale and value as Ghostty's minimum-contrast
+  "terminal.integrated.macOptionIsMeta": true,
+  "terminal.integrated.suggest.enabled": false,
+  // CMS palette (canonical copy with slot roles: dotfiles/settings/ghostty-config)
+  "workbench.colorCustomizations": {
+    "terminal.background": "#1b1d1e",
+    "terminal.foreground": "#e6e6d6",
+    "terminal.selectionBackground": "#55444480",
+    "terminalCursor.foreground": "#cccccc",
+    "terminal.ansiBlack": "#3d352a",
+    "terminal.ansiRed": "#cd5c5c",
+    "terminal.ansiGreen": "#b4d388",
+    "terminal.ansiYellow": "#f49d62",
+    "terminal.ansiBlue": "#92bfbf",
+    "terminal.ansiMagenta": "#b48ead",
+    "terminal.ansiCyan": "#92bfbf",
+    "terminal.ansiWhite": "#bbaa99",
+    "terminal.ansiBrightBlack": "#554444",
+    "terminal.ansiBrightRed": "#cd5c5c",
+    "terminal.ansiBrightGreen": "#b4d388",
+    "terminal.ansiBrightYellow": "#ede480",
+    "terminal.ansiBrightBlue": "#bddcdc",
+    "terminal.ansiBrightMagenta": "#b48ead",
+    "terminal.ansiBrightCyan": "#bddcdc",
+    "terminal.ansiBrightWhite": "#f1f1f1",
+  },
+
+  // Harper settings
+  "harper.linters.LongSentences": false,
+
+  // Miscellaneous settings (Likely added Dynamically)
+}
