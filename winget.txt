@@ -4,8 +4,22 @@
 # a Windows build exists; the rest are noted at the bottom.
 
 # --- Shell and terminal
-#Microsoft.PowerShell
+Microsoft.PowerShell
 # PowerShell 7 (Windows ships 5.1; the profile targets 7)
+
+Microsoft.WindowsTerminal
+# Terminal (the Ghostty counterpart; preinstalled on 11, kept for updates)
 
 Microsoft.PowerToys
 # FancyZones = the Rectangle counterpart (window snapping)
+
+
+# --- CLI tools
+sharkdp.bat
+# cat with syntax highlighting
+
+bootandy.dust
+# Disk usage as a tree
+
+eza-community.eza
+# Modern ls (also replaces tree)

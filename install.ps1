@@ -17,18 +17,34 @@ param([switch]$NoInput)
 $ErrorActionPreference = 'Stop'
 
 # The prompts hardcode ~\dotfiles, so refuse to run from anywhere else
-$dotfiledir = Split-Path -Parent $PSScriptRoot
+$dotfiledir = $PSScriptRoot
 if ((Resolve-Path $dotfiledir).Path -ne (Join-Path $HOME 'dotfiles')) {
     Write-Host "This repo must live at $HOME\dotfiles (currently running from $dotfiledir)." -ForegroundColor Red
-    Write-Host "Clone it there and re-run:  git clone https://github.com/cbromano/dotfiles/tree/myWindowsDotfile $HOME\dotfiles"
+    Write-Host "Clone it there and re-run:  git clone -b myWindowsDotfile https://github.com/cbromano/dotfiles.git $HOME\dotfiles"
     exit 1
 }
 . "$PSScriptRoot\helpers.ps1"
 Set-Location $dotfiledir
 
+# Checks for existing OneDrive roots and look for Documents and Desktop.
+# If either OneDrive folder isn’t present—for example, on the first run before OneDrive is installed—
+# the script falls back to $HOME\Documents or $HOME\Desktop.
+$oneDriveRoots = @($env:OneDrive, $env:OneDriveConsumer, $env:OneDriveCommercial, "$HOME\OneDrive") |
+    Where-Object { $_ -and (Test-Path -LiteralPath $_ -PathType Container) } |
+    Select-Object -Unique
+$documentsDir = Join-Path $HOME 'Documents'
+$desktopDir = Join-Path $HOME 'Desktop'
+$oneDriveDocuments = $oneDriveRoots | ForEach-Object { Join-Path $_ 'Documents' } |
+    Where-Object { Test-Path -LiteralPath $_ -PathType Container } | Select-Object -First 1
+$oneDriveDesktop = $oneDriveRoots | ForEach-Object { Join-Path $_ 'Desktop' } |
+    Where-Object { Test-Path -LiteralPath $_ -PathType Container } | Select-Object -First 1
+if ($oneDriveDocuments) { $documentsDir = $oneDriveDocuments }
+if ($oneDriveDesktop) { $desktopDir = $oneDriveDesktop }
+
 # --- winget packages and apps
 # Snapshot the Desktop shortcuts: installers add more, and only those are removed at the end
-$desktopBefore = @(Get-ChildItem "$HOME\Desktop\*.lnk", "$env:PUBLIC\Desktop\*.lnk" -ErrorAction SilentlyContinue).FullName
+
+$desktopBefore = @(Get-ChildItem (Join-Path $desktopDir '*.lnk'), "$env:PUBLIC\Desktop\*.lnk" -ErrorAction SilentlyContinue).FullName
 $packages = Read-Manifest "$PSScriptRoot\winget.txt"
 $installed = Get-CommandOutput { winget list --accept-source-agreements }
 foreach ($id in $packages) {
@@ -46,6 +62,64 @@ foreach ($id in $packages) {
     }
 }
 Update-Path   # tools installed above become callable from here on
+
+# --- Config files
+# PowerShell 7 profile
+Link-WithBackup "$PSScriptRoot\settings\Microsoft.PowerShell_profile.ps1" (Join-Path $documentsDir 'PowerShell\Microsoft.PowerShell_profile.ps1')
+Link-WithBackup "$PSScriptRoot\settings\Microsoft.PowerShell_profile.ps1" (Join-Path $documentsDir 'WindowsPowerShell\Microsoft.PowerShell_profile.ps1')   # 5.1: what SSH sessions land in
+# fzf keybindings for PowerShell (PSFzf), installed by PowerShell 7 itself: its module
+# installer needs no NuGet bootstrap (5.1's hangs), and the profile runs in 7 anyway
+$pwsh = (Get-Command pwsh -ErrorAction SilentlyContinue).Source
+if (-not $pwsh) { $pwsh = "$env:LOCALAPPDATA\Microsoft\WindowsApps\pwsh.exe" }
+$psfzf = if (Test-Path $pwsh) { Get-CommandOutput { & $pwsh -NoProfile -Command 'Get-Module -ListAvailable PSFzf' } }
+if (-not (Test-Path $pwsh)) {
+    Write-Warn 'pwsh not found; skipping the PSFzf module (re-run after PowerShell 7 is installed).'
+} elseif ($psfzf -match 'PSFzf') {
+    Write-Info 'PSFzf module already installed. Skipping.'
+} elseif ($psfzf -match 'Access is denied|failed to run') {
+    # The Store build of PowerShell 7 can't be started from an SSH session
+    Write-Warn 'Could not start pwsh from this session; skipping the PSFzf module (re-run from Terminal).'
+} else {
+    Write-Info 'Installing the PSFzf module...'
+    Invoke-Native { & $pwsh -NoProfile -Command 'Install-PSResource PSFzf -Scope CurrentUser -TrustRepository -Quiet' }
+}
+
+# Windows Terminal rewrites its settings.json, so merge into it instead of linking:
+# add/replace the CMS scheme, apply the defaults, make PowerShell 7 the default profile
+$wtSettings = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+if (Test-Path $wtSettings) {
+    $wt = Get-Content $wtSettings -Raw | ConvertFrom-Json
+    $wtBefore = $wt | ConvertTo-Json -Depth 32
+    $scheme = Get-Content "$PSScriptRoot\settings\cms-scheme.json" -Raw | ConvertFrom-Json
+    $wt.schemes = @($wt.schemes | Where-Object { $_.name -ne $scheme.name }) + $scheme
+    $defaults = Get-Content "$PSScriptRoot\settings\terminal-defaults.json" -Raw | ConvertFrom-Json
+    if (-not $wt.profiles.defaults) { $wt.profiles | Add-Member -NotePropertyName defaults -NotePropertyValue ([pscustomobject]@{}) }
+    foreach ($p in $defaults.PSObject.Properties) { $wt.profiles.defaults | Add-Member -NotePropertyName $p.Name -NotePropertyValue $p.Value -Force }
+    # The PowerShell 7 profile entry may not exist yet, but its GUID is deterministic
+    $pwsh = $wt.profiles.list | Where-Object { $_.source -eq 'Windows.Terminal.PowershellCore' } | Select-Object -First 1
+    $wt.defaultProfile = if ($pwsh) { $pwsh.guid } else { '{574e775e-4f2a-5b96-ac1e-a2962a402336}' }
+    $wtAfter = $wt | ConvertTo-Json -Depth 32
+    if ($wtAfter -eq $wtBefore) { Write-Info 'Windows Terminal already configured. Skipping.' }
+    else {
+        $wtAfter | Set-Content $wtSettings -Encoding utf8
+        Write-Info 'Windows Terminal: CMS scheme, defaults, and PowerShell 7 as the default profile.'
+    }
+} else { Write-Warn 'Windows Terminal settings.json not found (open Terminal once, then re-run).' }
+
+
+# bat config + color scheme (theme cache built below)
+Link-WithBackup "$dotfiledir\settings\bat-config" "$env:APPDATA\bat\config"
+Link-WithBackup "$dotfiledir\settings\bat-themes" "$env:APPDATA\bat\themes"
+
+# Ruff global config
+Link-WithBackup "$dotfiledir\settings\ruff.toml" "$env:APPDATA\ruff\ruff.toml"
+
+# Prettier global config (any file under $HOME with no closer .prettierrc uses it)
+Link-WithBackup "$dotfiledir\settings\prettierrc.json" "$HOME\.prettierrc"
+
+# VS Code settings and keybindings
+#Link-WithBackup "$dotfiledir\settings\VSCode-Settings.json" "$env:APPDATA\Code\User\settings.json"
+#Link-WithBackup "$dotfiledir\settings\VSCode-Keybindings.json" "$env:APPDATA\Code\User\keybindings.json"
 
 
 if (-not $NoInput) {

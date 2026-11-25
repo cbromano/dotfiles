@@ -15,7 +15,8 @@ Ubuntu, where the [`ubuntu/`](../ubuntu/) installer gives the shell setup.
 2. Run the script from an elevated PowerShell (Windows Terminal → Run as administrator):
    ```powershell
    Set-ExecutionPolicy Bypass -Scope Process
-   & $HOME\dotfiles\windows\install.ps1
+   & $HOME\dotfiles\install.ps1
+   -NoInput
    ```
    It installs everything in `winget.txt`, links the PowerShell profile, applies
    the color scheme and font to Windows Terminal, links the bat/ruff/ssh/VS Code
