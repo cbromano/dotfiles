@@ -1,9 +1,9 @@
 #Requires -RunAsAdministrator
 ############################
-# Sets up a Windows machine (the native layer; WSL gets ../ubuntu/install.sh):
+# Sets up a Windows machine:
 #   1. Installs winget packages and apps       (winget.txt)
 #   2. Links config files into place           (PowerShell profile, Terminal, bat, ruff, ssh, VS Code)
-#      and sets Windows preferences          (settings.ps1)
+#      and sets Windows preferences
 #   3. Installs global npm/uv tools, AI agent skills, VS Code extensions, fonts
 #
 # Run from an elevated PowerShell:  Set-ExecutionPolicy Bypass -Scope Process; .\windows\install.ps1
@@ -108,13 +108,16 @@ if (Test-Path $wtSettings) {
 
 
 # bat config + color scheme (theme cache built below)
-Link-WithBackup "$dotfiledir\settings\bat-config" "$env:APPDATA\bat\config"
-Link-WithBackup "$dotfiledir\settings\bat-themes" "$env:APPDATA\bat\themes"
+# There was no changes other than the theme, which I'm not sure I care about
+#Link-WithBackup "$dotfiledir\settings\bat-config" "$env:APPDATA\bat\config"
+#Link-WithBackup "$dotfiledir\settings\bat-themes" "$env:APPDATA\bat\themes"
 
 # Ruff global config
+# Ruff is overkill, but it can be used to lint Python, TOML, and Markdown files, and it has a VS Code extension
 Link-WithBackup "$dotfiledir\settings\ruff.toml" "$env:APPDATA\ruff\ruff.toml"
 
 # Prettier global config (any file under $HOME with no closer .prettierrc uses it)
+
 Link-WithBackup "$dotfiledir\settings\prettierrc.json" "$HOME\.prettierrc"
 
 # VS Code settings and keybindings

@@ -4,8 +4,8 @@
 <!--
 Predawn color scheme by Jamie Wilson (MIT) - https://github.com/jamiewilson/predawn
 Copied unmodified from the VS Code "Predawn Theme Kit" extension so bat's
-syntax highlighting matches the editor. install.sh links this folder to
-~/.config/bat/themes and brew.sh runs `bat cache --build` to register it.
+syntax highlighting matches the editor. Copy this folder to the bat theme
+directory and run `bat cache --build` to register it on Windows.
 -->
 
 <!--

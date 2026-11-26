@@ -1,4 +1,4 @@
-# Shared helpers, dot-sourced by install.ps1 (not run directly); the twin of ../helpers.sh.
+# Shared helpers, dot-sourced by install.ps1 (not run directly).
 # A fresh machine runs these under Windows PowerShell 5.1, which reads BOM-less files as
 # Windows-1252: keep them plain ASCII.
 

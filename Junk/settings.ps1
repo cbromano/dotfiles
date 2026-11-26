@@ -1,5 +1,5 @@
 ############################
-# Windows preferences - the macOS.sh counterpart. Dot-sourced by install.ps1 (elevated).
+# Windows preferences. Dot-sourced by install.ps1 (elevated).
 # Each setting checks before changing anything.
 ############################
 

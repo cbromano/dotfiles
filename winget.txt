@@ -1,7 +1,6 @@
-# winget packages installed by windows/install.ps1 — one ID per line.
+# winget packages installed by install.ps1 — one ID per line.
 # Lines starting with # (and blank lines) are ignored. IDs are exact
-# (`winget search <name>` to find one). Same tools as the Mac manifests where
-# a Windows build exists; the rest are noted at the bottom.
+# (`winget search <name>` to find one).
 
 # --- Shell and terminal
 Microsoft.PowerShell

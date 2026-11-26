@@ -1,5 +1,5 @@
-﻿# PowerShell profile (7 and Windows PowerShell 5.1), linked by windows/install.ps1:
-# the Windows twin of .zshrc + .zprompt + .aliases. Saved as UTF-8 with a BOM,
+﻿# PowerShell profile (7 and Windows PowerShell 5.1), linked by install.ps1:
+# Provides the Windows prompt, aliases, and shell helpers. Saved as UTF-8 with a BOM,
 # which 5.1 needs to read it correctly.
 
 # UTF-8 output (5.1 defaults to the OEM code page over SSH)
@@ -63,12 +63,12 @@ if ($interactive) {
     # No inline predictions (matches zsh; 5.1's PSReadLine lacks the option)
     if ((Get-Command Set-PSReadLineOption).Parameters.ContainsKey('PredictionSource')) { Set-PSReadLineOption -PredictionSource None }
     Set-PSReadLineOption -BellStyle None
-    # Alt+Arrow moves by word like Ctrl+Arrow (Option+Arrow on the Mac)
+    # Alt+Arrow moves by word like Ctrl+Arrow
     Set-PSReadLineKeyHandler -Chord Alt+LeftArrow -Function BackwardWord
     Set-PSReadLineKeyHandler -Chord Alt+RightArrow -Function ForwardWord
 }
 
-# open <path>: Explorer for folders, the default app for files (like macOS)
+# open <path>: Explorer for folders, the default app for files
 Set-Alias -Name open -Value Invoke-Item
 
 # --- Aliases (PowerShell's built-in ls/cat aliases are replaced with functions;
@@ -83,7 +83,7 @@ if (Get-Command bat -ErrorAction SilentlyContinue) {
     Remove-Item Alias:cat -Force -ErrorAction SilentlyContinue
     function cat { bat -p --paging=never @args }
 }
-# File-type colors for eza (same as .aliases): bold yellow dirs, blue symlinks, green executables
+# File-type colors for eza: bold yellow dirs, blue symlinks, green executables
 $env:LS_COLORS = 'di=01;33:ln=34:so=32:pi=33:ex=32:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
 $env:EZA_COLORS = 'ur=37:uw=37:ux=32:ue=32:gr=37:gw=37:gx=32:tr=37:tw=37:tx=32:su=31:sf=31:xa=37:sn=0:sb=37:uu=37:un=37:uR=31:gu=37:gn=37:gR=31:hd=4;37:lc=37:lm=37'
 
