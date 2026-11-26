@@ -2,11 +2,11 @@
 ############################
 # Sets up a Windows machine:
 #   1. Installs winget packages and apps       (winget.txt)
-#   2. Links config files into place           (PowerShell profile, Terminal, bat, ruff, ssh, VS Code)
+#   2. Links config files into place           (PowerShell profile, Terminal, Ruff, Prettier)
 #      and sets Windows preferences
 #   3. Installs global npm/uv tools, AI agent skills, VS Code extensions, fonts
 #
-# Run from an elevated PowerShell:  Set-ExecutionPolicy Bypass -Scope Process; .\windows\install.ps1
+# Run from an elevated PowerShell:  Set-ExecutionPolicy Bypass -Scope Process; & $HOME\dotfiles\install.ps1
 # Safe to re-run: steps check before changing anything, and replaced files
 # are backed up to ~\.dotfiles_backup\<timestamp>\
 ############################
@@ -129,7 +129,7 @@ if (-not $NoInput) {
     Pause-For 'Sign in to Google Chrome.'
     Pause-For 'Sign in to Google Drive.'
     Pause-For 'Sign in to Discord.'
-    Pause-For 'Optional: to SSH into this PC, see "SSH into this PC" in windows\README.md.'
+    Pause-For 'Optional: to SSH into this PC, see "SSH into this PC" in README.md.'
     Pause-For 'Open PowerToys and set up a FancyZones layout.'
     Pause-For 'Sign in to your accounts (GitHub Copilot, etc.) within VS Code.'
 }
