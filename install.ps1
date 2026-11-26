@@ -117,19 +117,27 @@ if (Test-Path $wtSettings) {
 Link-WithBackup "$dotfiledir\settings\ruff.toml" "$env:APPDATA\ruff\ruff.toml"
 
 # Prettier global config (any file under $HOME with no closer .prettierrc uses it)
-
+# Seems like basic changes that I probably don't care about
 Link-WithBackup "$dotfiledir\settings\prettierrc.json" "$HOME\.prettierrc"
 
 # VS Code settings and keybindings
-#Link-WithBackup "$dotfiledir\settings\VSCode-Settings.json" "$env:APPDATA\Code\User\settings.json"
-#Link-WithBackup "$dotfiledir\settings\VSCode-Keybindings.json" "$env:APPDATA\Code\User\keybindings.json"
+Link-WithBackup "$dotfiledir\settings\VSCode-Settings.json" "$env:APPDATA\Code\User\settings.json"
+Link-WithBackup "$dotfiledir\settings\VSCode-Keybindings.json" "$env:APPDATA\Code\User\keybindings.json"
+
+# Register the Predawn bat theme
+# I don't know if I want the predawn theme
+# if ((Get-CommandOutput { bat --list-themes }) -match '(?m)^Predawn\s*$') { Write-Info 'bat theme cache already built. Skipping.' }
+# else { Write-Info "Building bat's theme cache..."; bat cache --build | Out-Null }
+
+# --- Windows preferences
+. "$PSScriptRoot\settings.ps1"
+
 
 
 if (-not $NoInput) {
     Pause-For 'Sign in to Google Chrome.'
-    Pause-For 'Sign in to Google Drive.'
-    Pause-For 'Sign in to Discord.'
-    Pause-For 'Optional: to SSH into this PC, see "SSH into this PC" in README.md.'
+    #Pause-For 'Sign in to Google Drive.'
+    #Pause-For 'Sign in to Discord.'
     Pause-For 'Open PowerToys and set up a FancyZones layout.'
     Pause-For 'Sign in to your accounts (GitHub Copilot, etc.) within VS Code.'
 }

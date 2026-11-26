@@ -1,0 +1,77 @@
+{
+  // Workbench quality of life
+  "workbench.startupEditor": "newUntitledFile",
+  "diffEditor.useInlineViewWhenSpaceIsLimited": false,
+  "zenMode.centerLayout": false,
+  "zenMode.fullScreen": false,
+  "zenMode.hideLineNumbers": false,
+
+  // Copilot
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+
+  // General formatting
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Python
+  "python.languageServer": "Default",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.typeCheckingMode": "off",
+  "python.analysis.autoFormatStrings": true,
+  "python.analysis.addHoverSummaries": true,
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  // Jupyter notebooks
+  "notebook.defaultFormatter": "charliermarsh.ruff",
+  "notebook.formatOnSave.enabled": true,
+  "notebook.codeActionsOnSave": {
+    "notebook.source.organizeImports": "explicit"
+  },
+  "notebook.insertFinalNewline": true,
+  "notebook.output.scrolling": true,
+  "notebook.lineNumbers": "on",
+  "notebook.scrolling.revealNextCellOnExecute": "none",
+
+  // Integrated terminal
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.drawBoldTextInBrightColors": false,
+  "terminal.integrated.minimumContrastRatio": 1.1,
+  "terminal.integrated.suggest.enabled": false,
+
+  // JetBrains Mono will need to be installed and this font setting enabled later.
+  // "editor.fontFamily": "JetBrains Mono",
+  // "editor.fontWeight": "400",
+  // "debug.console.fontFamily": "JetBrains Mono",
+  // "terminal.integrated.fontFamily": "JetBrains Mono",
+
+  // Match the Windows Terminal CMS palette.
+  "workbench.colorCustomizations": {
+    "terminal.background": "#1b1d1e",
+    "terminal.foreground": "#e6e6d6",
+    "terminal.selectionBackground": "#55444480",
+    "terminalCursor.foreground": "#cccccc",
+    "terminal.ansiBlack": "#3d352a",
+    "terminal.ansiRed": "#cd5c5c",
+    "terminal.ansiGreen": "#b4d388",
+    "terminal.ansiYellow": "#f49d62",
+    "terminal.ansiBlue": "#92bfbf",
+    "terminal.ansiMagenta": "#b48ead",
+    "terminal.ansiCyan": "#92bfbf",
+    "terminal.ansiWhite": "#bbaa99",
+    "terminal.ansiBrightBlack": "#554444",
+    "terminal.ansiBrightRed": "#cd5c5c",
+    "terminal.ansiBrightGreen": "#b4d388",
+    "terminal.ansiBrightYellow": "#ede480",
+    "terminal.ansiBrightBlue": "#bddcdc",
+    "terminal.ansiBrightMagenta": "#b48ead",
+    "terminal.ansiBrightCyan": "#bddcdc",
+    "terminal.ansiBrightWhite": "#f1f1f1"
+  }
+}

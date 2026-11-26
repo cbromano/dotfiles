@@ -46,7 +46,7 @@ it skips installed packages and backs up files before replacing them.
 - Prompts for optional account sign-ins and desktop setup.
 
 The following items are included in the repository but are not currently linked
-by `install.ps1`: bat configuration, bat themes, and VS Code settings/keybindings.
+by `install.ps1`: bat configuration and bat themes.
 
 ## Configuration Files
 
@@ -57,10 +57,16 @@ by `install.ps1`: bat configuration, bat themes, and VS Code settings/keybinding
   PowerShell prompt and shell helpers.
 - [cms-scheme.json](settings/cms-scheme.json): Windows Terminal color scheme.
 - [terminal-defaults.json](settings/terminal-defaults.json): Windows Terminal defaults.
+- [settings.ps1](settings.ps1): Selective Windows preferences for Explorer, Edge,
+  Game Bar, unwanted apps, long paths, and a black desktop background.
 - [ruff.toml](settings/ruff.toml): Global Ruff configuration copied to
   `$env:APPDATA\ruff\ruff.toml`.
 - [prettierrc.json](settings/prettierrc.json): Prettier configuration copied to
   `$HOME\.prettierrc`.
+- [VSCode-Settings.json](settings/VSCode-Settings.json): VS Code settings copied
+  to `$env:APPDATA\Code\User\settings.json`.
+- [VSCode-Keybindings.json](settings/VSCode-Keybindings.json): VS Code keybindings
+  copied to `$env:APPDATA\Code\User\keybindings.json`.
 
 ## SSH into this PC
 
